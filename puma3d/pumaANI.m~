@@ -54,12 +54,12 @@ function pumaANI(theta1,theta2,theta3,theta4,theta5,theta6,n,trail)
         link_data = getappdata(0, 'link_data');
 
         Link1 = link_data.s1.V1;
-        Link2 = (T_01 * link_data.s2.V2')';
-        Link3 = (T_02 * link_data.s3.V3')';
-        Link4 = (T_03 * link_data.s4.V4')';
-        Link5 = (T_04 * link_data.s5.V5')';
-        Link6 = (T_05 * link_data.s6.V6')';
-        Link7 = (T_06 * link_data.s7.V7')';
+        Link2 = (T_01*link_data.s2.V2')';
+        Link3 = (T_02*link_data.s3.V3')';
+        Link4 = (T_03*link_data.s4.V4')';
+        Link5 = (T_04*link_data.s5.V5')';
+        Link6 = (T_05*link_data.s6.V6')';
+        Link7 = (T_06*link_data.s7.V7')';
         %     Tool = T_07;
 
         %     if sqrt(Tool(1,4)^2+Tool(2,4)^2)<514

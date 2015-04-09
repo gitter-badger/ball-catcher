@@ -1,4 +1,4 @@
-function user_entry = check_edit(h,min_v,max_v,default,h_edit)
+function user_entry = check_edit(h, min_v, max_v, default, h_edit)
     % This function will check the value typed in the text input box
     % against min and max values, and correct errors.
     %
@@ -9,6 +9,7 @@ function user_entry = check_edit(h,min_v,max_v,default,h_edit)
     % h_edit is the edit value to update.
     %
     user_entry = str2double(get(h,'string'));
+    fprintf('min: %f   max: %f   val: %f   def: %f\n', min_v, max_v, user_entry, default);
     if isnan(user_entry)
         errordlg(['You must enter a numeric value, defaulting to ',num2str(default),'.'],'Bad Input','modal')
         set(h_edit,'string',default);
@@ -25,4 +26,5 @@ function user_entry = check_edit(h,min_v,max_v,default,h_edit)
         user_entry = max_v;
         set(h_edit,'string',user_entry);
     end
+    
 end

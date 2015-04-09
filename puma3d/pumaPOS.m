@@ -1,13 +1,7 @@
 function PumaPOS(theta1,theta2,theta3,theta4,theta5,theta6)
 
-    s1 = getappdata(0,'Link1_data');
-    s2 = getappdata(0,'Link2_data');
-    s3 = getappdata(0,'Link3_data');
-    s4 = getappdata(0,'Link4_data');
-    s5 = getappdata(0,'Link5_data');
-    s6 = getappdata(0,'Link6_data');
-    s7 = getappdata(0,'Link7_data');
-    A1 = getappdata(0,'Area_data');
+    
+    link_data = getappdata(0, 'link_data');
     %
     a2 = 650;
     a3 = 0;
@@ -39,13 +33,13 @@ function PumaPOS(theta1,theta2,theta3,theta4,theta5,theta6)
     T_05 = T_04*T_45;
     T_06 = T_05*T_56;
     %
-    Link1 = s1.V1;
-    Link2 = (T_01*s2.V2')';
-    Link3 = (T_02*s3.V3')';
-    Link4 = (T_03*s4.V4')';
-    Link5 = (T_04*s5.V5')';
-    Link6 = (T_05*s6.V6')';
-    Link7 = (T_06*s7.V7')';
+    Link1 = link_data.s1.V1;
+    Link2 = (T_01 * link_data.s2.V2')';
+    Link3 = (T_02 * link_data.s3.V3')';
+    Link4 = (T_03 * link_data.s4.V4')';
+    Link5 = (T_04 * link_data.s5.V5')';
+    Link6 = (T_05 * link_data.s6.V6')';
+    Link7 = (T_06 * link_data.s7.V7')';
 
     handles = getappdata(0,'patch_h');           %
     L1 = handles(1);
