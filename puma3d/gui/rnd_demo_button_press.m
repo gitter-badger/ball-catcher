@@ -1,16 +1,7 @@
 function rnd_demo_button_press(h, dummy)
-        global t1_edit;
-        global t1_slider;
-        global t2_edit;
-        global t2_slider;
-        global t3_edit;
-        global t3_slider;
-        global t4_edit;
-        global t4_slider;
-        global t5_edit;
-        global t5_slider;
-        global t6_edit;
-        global t6_slider;
+        global t1_edit t1_slider t2_edit t2_slider t3_edit t3_slider;
+        global t4_edit t4_slider t5_edit t5_slider t6_edit t6_slider;
+        
         %disp('pushed random demo bottom');
         % a = 10; b = 50; x = a + (b-a) * rand(5)
         %     Angle    Range                Default Name
@@ -20,6 +11,7 @@ function rnd_demo_button_press(h, dummy)
         %     Theta 4: 532 (-266 to 266)    0       Wrist Roll
         %     Theta 5: 200 (-100 to 100)    0       Wrist Bend
         %     Theta 6: 532 (-266 to 266)    0       Wrist Swival
+        
         t1_home = 90; % offsets to define the "home" postition as UP.
         t2_home = -90;
         t3_home = -90;
@@ -30,6 +22,7 @@ function rnd_demo_button_press(h, dummy)
         theta5 = -100 + 200*rand(1);
         theta6 = -266 + 532*rand(1);
         n = 50;
+        
         pumaANI(theta1+t1_home,theta2+t2_home,theta3+t3_home,theta4,theta5,theta6,n,'y')
         set(t1_edit,'string',round(theta1)); % Update slider and text.
         set(t1_slider,'Value',round(theta1));

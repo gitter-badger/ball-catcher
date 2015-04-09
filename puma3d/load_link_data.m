@@ -1,0 +1,2 @@
+function load_link_data
+end

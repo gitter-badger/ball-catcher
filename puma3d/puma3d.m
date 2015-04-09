@@ -22,8 +22,11 @@ function puma3d
 % Robot geometry uses the CAD2MATDEMO code in the Mathworks file exchange
 %
 %%
-loaddata
-InitHome
+
+addpath gui/
+
+init_arm
+
 global fig_1
 %
 % Create the push buttons: pos is: [left bottom width height]
@@ -42,7 +45,12 @@ clr_trail= uicontrol(fig_1,'String','Clr Trail','callback',@clr_trail_button_pre
 global home;
 home= uicontrol(fig_1,'String','Home','callback',@home_button_press,...
     'Position',[280 5 70 20]);
-%
+
+global create_ball;
+create_ball = uicontrol(fig_1,'String','Create Ball','callback',@create_ball_button_press,...
+    'Position', [370 5 80 20]);
+
+% 
 % Kinematics Panel
 %
 global K_p;
@@ -72,6 +80,7 @@ global HT;
 HT= 18;  % Height
 global BT;
 BT= 156; % Bottom
+
 %%  GUI buttons for Theta 1.  pos is: [left bottom width height]
 global t1_slider;
 t1_slider= uicontrol(K_p,'style','slider',...
@@ -232,5 +241,7 @@ t6_edit= uicontrol(K_p,'style','edit',...
     'Position',[LD-75 BT 30 HT]); % L, B, W, H
 %
 
+% rmpath gui/
 end
+
 % Finally.
