@@ -1,5 +1,5 @@
 function demo_button_press(h,dummy)
-    global t1_edit t1_slider t2_edit t2_slider t3_edit t3_slider;
+    kin_panel = getappdata(0, 'kin_panel');
     
     % disp('pushed demo bottom');
     %         R = 500;
@@ -13,19 +13,19 @@ function demo_button_press(h,dummy)
         Py = 1200-300*t*(t)/(50*pi);
         Pz = 30*t*sin(t);
         [theta1,theta2,theta3,theta4,theta5,theta6] = pumaIK(Px,Py,Pz);
-        if t==0 %move to start of demo
+        if t==0 % move to start of demo
             pumaANI(theta1,theta2,theta3-180,0,0,0,num,'n')
         end
         
         % Theta 4, 5 & 6 are zero due to plotting at wrist origen.
         pumaANI(theta1,theta2,theta3-180,0,0,0,n,'y')
 
-        set(t1_edit,'string',round(theta1)); % Update slider and text.
-        set(t1_slider,'Value',round(theta1));
-        set(t2_edit,'string',round(theta2));
-        set(t2_slider,'Value',round(theta2));
-        set(t3_edit,'string',round(theta3-180));
-        set(t3_slider,'Value',round(theta3-180));
+        set(kin_panel.t1.edit,'string',round(theta1)); % Update slider and text.
+        set(kin_panel.t1.slider,'Value',round(theta1));
+        set(kin_panel.t2.edit,'string',round(theta2));
+        set(kin_panel.t2.slider,'Value',round(theta2));
+        set(kin_panel.t3.edit,'string',round(theta3-180));
+        set(kin_panel.t3.slider,'Value',round(theta3-180));
     end
     gohome
 %   pumaANI(90,-90,-90,0,0,0,num,'n')

@@ -3,7 +3,7 @@ function pumaANI(theta1,theta2,theta3,theta4,theta5,theta6,n,trail)
     % n is number of steps for the animation
     % trail is 'y' or 'n' (n = anything else) for leaving a trail.
     %
-    disp('in animate');
+    %disp('in animate');
     a2 = 650; %D-H paramaters
     a3 = 0;
     d3 = 190;

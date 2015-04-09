@@ -1,6 +1,6 @@
 function clr_trail_button_press(h,dummy)
     %disp('pushed clear trail bottom');
-    handles = getappdata(0,'patch_h');           %
+    handles = getappdata(0,'patch_h');
     Tr = handles(9);
     %
     setappdata(0,'xtrail',0); % used for trail tracking.
