@@ -10,21 +10,14 @@ function pumaANI(theta1,theta2,theta3,theta4,theta5,theta6,n,trail)
     d4 = 600;
     % Err2 = 0;
     %
-    ThetaOld = getappdata(0, 'ThetaOld');
+    arm = getappdata(0, 'arm');
     %
-    theta1old = ThetaOld(1);
-    theta2old = ThetaOld(2);
-    theta3old = ThetaOld(3);
-    theta4old = ThetaOld(4);
-    theta5old = ThetaOld(5);
-    theta6old = ThetaOld(6);
-    %
-    t1 = linspace(theta1old, theta1, n); 
-    t2 = linspace(theta2old, theta2, n); 
-    t3 = linspace(theta3old, theta3, n);% -180;  
-    t4 = linspace(theta4old, theta4, n); 
-    t5 = linspace(theta5old, theta5, n); 
-    t6 = linspace(theta6old, theta6, n); 
+    t1 = linspace(arm.theta_old(1), theta1, n); 
+    t2 = linspace(arm.theta_old(2), theta2, n); 
+    t3 = linspace(arm.theta_old(3), theta3, n);% -180;  
+    t4 = linspace(arm.theta_old(4), theta4, n); 
+    t5 = linspace(arm.theta_old(5), theta5, n); 
+    t6 = linspace(arm.theta_old(6), theta6, n); 
 
     n = length(t1);
     for i = 2:1:n
@@ -98,9 +91,9 @@ function pumaANI(theta1,theta2,theta3,theta4,theta5,theta6,n,trail)
             y_trail = getappdata(0,'ytrail');
             z_trail = getappdata(0,'ztrail');
             %
-            xdata = [x_trail T_04(1,4)];
-            ydata = [y_trail T_04(2,4)];
-            zdata = [z_trail T_04(3,4)];
+            xdata = [x_trail T_04(1, 4)];
+            ydata = [y_trail T_04(2, 4)];
+            zdata = [z_trail T_04(3, 4)];
             %
             setappdata(0,'xtrail',xdata); % used for trail tracking.
             setappdata(0,'ytrail',ydata); % used for trail tracking.
@@ -110,5 +103,11 @@ function pumaANI(theta1,theta2,theta3,theta4,theta5,theta6,n,trail)
         end
         drawnow
     end
-    setappdata(0,'ThetaOld',[theta1,theta2,theta3,theta4,theta5,theta6]);
+    arm.theta_old(1) = theta1;
+    arm.theta_old(2) = theta2;
+    arm.theta_old(3) = theta3;
+    arm.theta_old(4) = theta4;
+    arm.theta_old(5) = theta5;
+    arm.theta_old(6) = theta6;
+    setappdata(0, 'arm', arm);
 end

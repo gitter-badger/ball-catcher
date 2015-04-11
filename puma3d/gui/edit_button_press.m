@@ -6,7 +6,6 @@ function edit_button_press(h, dummy)
     
     theta_values = home_pos;
     for i=1:6
-        disp(i);
         theta_values(i) = theta_values(i) + ...
             check_edit(kin_panel.theta(i).edit, min_pos(i), max_pos(i), ...
             0, kin_panel.theta(i).edit);

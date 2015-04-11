@@ -1,5 +1,5 @@
 % Creates a ball with the given parameters of 
-function create_ball(x, y, z, vx, vy, vz, ax, ay, az)
+function ball_init(x, y, z, vx, vy, vz, ax, ay, az)
     global balls
     
     new_ball = {};

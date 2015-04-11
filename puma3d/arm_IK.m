@@ -1,4 +1,4 @@
-function [theta1,theta2,theta3,theta4,theta5,theta6] = pumaIK(Px,Py,Pz)
+function [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(Px,Py,Pz)
     theta4 = 0;
     theta5 = 0;
     theta6 = 0;
