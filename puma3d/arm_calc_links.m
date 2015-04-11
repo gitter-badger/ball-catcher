@@ -1,8 +1,16 @@
-function [link1, link2, link3, link4, link5, link6, link7] = arm_calc_links(new_theta)
+function [link1, link2, link3, link4, link5, link6, link7] = arm_calc_links(a1, a2, a3, a4, a5, a6)
     arm = getappdata(0, 'arm');
+    %new_theta = arm.theta;
     
-    if nargin < 1
+    if nargin == 0
         new_theta = arm.theta;
+    elseif nargin == 1
+        new_theta = a1;
+    elseif nargin == 6
+        new_theta = [a1 a2 a3 a4 a5 a6];
+    else
+        fprintf('Error : Invalid number of arguments\n');
+        return
     end
     
     % Forward Kinematics using T-Matrix

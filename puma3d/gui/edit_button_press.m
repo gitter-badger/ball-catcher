@@ -14,6 +14,5 @@ function edit_button_press(h, dummy)
             theta_values(i) - home_pos(i));  % slider = text box.
     end
     
-    pumaANI(theta_values(1), theta_values(2), theta_values(3), ...
-        theta_values(4), theta_values(5), theta_values(6), 10,'n')
+    arm_animate(theta_values, 10,'n')
 end

@@ -36,11 +36,12 @@ function puma
     % Creates the "fig" figure and plots basic links/axes etc
     % Adds "arm.trail" to arm structure
     % Creates kin_panel and uicontrols also.
+    % draws the patches which will be used for the arm also
     fig_init;
     
     % Uses the "arm.link_data" and "arm.linkX" to make
     % patch handlers and saved in "arm.patch_h" Also initializes "trail"
-    fig_draw;
+    arm_draw;
 
     % rmpath gui/
 end

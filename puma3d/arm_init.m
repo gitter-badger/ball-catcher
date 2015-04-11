@@ -33,5 +33,7 @@ function arm_init
     % The 'home' position in angles, for the start
     arm.theta = arm.home_pos;
     
+    arm.trail = [0; 0; 0];
+    
     setappdata(0, 'arm', arm);
 end
