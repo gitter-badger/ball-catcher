@@ -1,20 +1,40 @@
 % Creates a ball with the given parameters of 
-function ball_init(x, y, z, vx, vy, vz, ax, ay, az)
-    global balls
+function ball_init(pos, r, vel, acc)
+    balls = {};
+    
+    if nargin == 0
+        pos = rand(1,3);
+        r = 40; 
+        vel = rand(1,3); 
+        acc = [0 0 0];
+    elseif nargin == 1
+        r = 40; 
+        vel = rand(1,3); 
+        acc = [0 0 0];
+    elseif nargin == 2
+        vel = rand(1,3); 
+        acc = [0 0 0];
+    elseif nargin == 3
+        acc = [0 0 0];
+    end
     
     new_ball = {};
-    new_ball.x = x;
-    new_ball.y = y;
-    new_ball.z = z;
-    new_ball.vx = vx;
-    new_ball.vy = vy;
-    new_ball.vz = vz;
-    new_ball.ax = ax;
-    new_ball.ay = ay;
-    new_ball.az = az;
+    new_ball.radius = r;
+    new_ball.pos = pos;
+    new_ball.vel = vel;
+    new_ball.acc = acc;
+    new_ball.last_updated = clock;
     
     [sphere_x, sphere_y, sphere_z] = sphere;
-    %surf(sphere_x*
+    
+    new_ball.handler = surf(sphere_x * new_ball.radius + new_ball.pos(1), ...
+        sphere_y * new_ball.radius + new_ball.pos(2), ...
+        sphere_z * new_ball.radius + new_ball.pos(3));
+    
+    set(new_ball.handler, 'FaceColor', [0 0 1], 'FaceAlpha', 1, ...
+        'EdgeColor', 'none', 'LineStyle', 'none', 'FaceLighting', 'phong');
     
     balls = [balls new_ball];
+    
+    setappdata(0, 'balls', balls);
 end
