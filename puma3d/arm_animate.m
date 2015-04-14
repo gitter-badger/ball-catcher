@@ -8,15 +8,15 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8)
     n = 1;
     trail = 'n';
     
-    if nargin == 1 && size(a1) == [1 6]        
+    if nargin == 1 && isequal(size(a1), [1 6])
         new_theta = a1;
         n = 1;
         trail = 'n';
-    elseif nargin == 2 && size(a1) == [1 6]        
+    elseif nargin == 2 && isequal(size(a1), [1 6])
         new_theta = a1;
         n = 1;
         trail = a2;
-    elseif nargin == 3 && size(a1) == [1 6]        
+    elseif nargin == 3 && isequal(size(a1), [1 6]) 
         new_theta = a1;
         n = a2;
         trail = a3;
@@ -41,14 +41,11 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8)
     for i = 2:1:n
         % Forward Kinematics
         %
-        arm_calc_links(theta_chain(:, i)');
+        arm_calc_links(theta_chain(:, i)', trail);
         
         arm_draw;
+        arm = getappdata(0, 'arm');
         
-        % store trail in appdata 
-        if trail == 'y'
-            arm.trail = [arm.trail T_04(1:3, 4)];
-        end
         drawnow
         arm.theta = theta_chain(:, i);
         setappdata(0, 'arm', arm); % Update arm so everyone can use it

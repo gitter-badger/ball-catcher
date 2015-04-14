@@ -12,13 +12,13 @@ function demo_button_press(h, dummy)
         Px = 30*t*cos(t);
         Py = 1200-300*t*(t)/(50*pi);
         Pz = 30*t*sin(t);
-        [theta1,theta2,theta3,theta4,theta5,theta6] = pumaIK(Px,Py,Pz);
+        [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(Px, Py, Pz);
         if t==0 % move to start of demo
-            pumaANI(theta1,theta2,theta3-180,0,0,0,num,'n')
+            arm_animate(theta1, theta2, theta3-180, 0, 0, 0, num, 'n')
         end
         
         % Theta 4, 5 & 6 are zero due to plotting at wrist origen.
-        pumaANI(theta1, theta2, theta3-180, 0, 0, 0, n, 'y')
+        arm_animate(theta1, theta2, theta3-180, 0, 0, 0, n, 'y')
 
         set(kin_panel.theta(1).edit, 'string', round(theta1)); % Update slider and text.
         set(kin_panel.theta(1).slider, 'Value', round(theta1));

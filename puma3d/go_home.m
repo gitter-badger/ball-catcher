@@ -1,9 +1,8 @@
 function go_home()
     kin_panel = getappdata(0, 'kin_panel');
-    home_pos = getappdata(0, 'home_pos');
+    arm = getappdata(0, 'arm');
     
-    pumaANI(home_pos(1), home_pos(2), home_pos(3), ...
-        home_pos(4), home_pos(5), home_pos(6), 20,'n') % show it animate home
+    arm_animate(arm.home_pos, 20, 'n') % show it animate home
 %     pumaPOS(home_pos(1), home_pos(2), home_pos(3), ...
 %         home_pos(4), home_pos(5), home_pos(6))  %drive it home, no animate.
     
@@ -12,5 +11,6 @@ function go_home()
         set(kin_panel.theta(i).edit, 'Value', 0);
     end
     
-    setappdata(0, 'ThetaOld', home_pos);
+    setappdata(0, 'arm', arm);
+    setappdata(0, 'kin_panel', kin_panel);
 end

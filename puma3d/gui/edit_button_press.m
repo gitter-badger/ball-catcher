@@ -1,17 +1,16 @@
 function edit_button_press(h, dummy)
     kin_panel = getappdata(0, 'kin_panel');
-    home_pos = getappdata(0, 'home_pos');
-    min_pos = getappdata(0, 'min_pos');
-    max_pos = getappdata(0, 'max_pos');
+    arm = getappdata(0, 'arm');
     
-    theta_values = home_pos;
-    for i=1:6
-        theta_values(i) = theta_values(i) + ...
-            check_edit(kin_panel.theta(i).edit, min_pos(i), max_pos(i), ...
-            0, kin_panel.theta(i).edit);
+    theta_values = zeros(size(arm.home_pos));
+    for i=1:size(arm.home_pos, 2)
         
-        set(kin_panel.theta(i).slider, 'Value', ...
-            theta_values(i) - home_pos(i));  % slider = text box.
+        edit_value = check_edit(kin_panel.theta(i).edit, arm.min_pos(i), ...
+            arm.max_pos(i), 0, kin_panel.theta(i).edit);
+        
+        theta_values(i) = arm.home_pos(i) + edit_value;
+        
+        set(kin_panel.theta(i).slider, 'Value', edit_value);
     end
     
     arm_animate(theta_values, 10,'n')

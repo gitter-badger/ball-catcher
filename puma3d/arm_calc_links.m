@@ -1,13 +1,24 @@
-function [link1, link2, link3, link4, link5, link6, link7] = arm_calc_links(a1, a2, a3, a4, a5, a6)
+function [link1, link2, link3, link4, link5, link6, link7] = arm_calc_links(a1, a2, a3, a4, a5, a6, a7)
     arm = getappdata(0, 'arm');
-    %new_theta = arm.theta;
+    new_theta = arm.theta;
+    trail = 'n';
     
     if nargin == 0
-        new_theta = arm.theta;
+        
     elseif nargin == 1
+        if ischar(a1)
+            trail = a1;
+        else
+            new_theta = a1;
+        end
+    elseif nargin == 2
         new_theta = a1;
+        trail = a2;
     elseif nargin == 6
         new_theta = [a1 a2 a3 a4 a5 a6];
+    elseif nargin == 7
+        new_theta = [a1 a2 a3 a4 a5 a6];
+        trail = a7;
     else
         fprintf('Error : Invalid number of arguments\n');
         return
@@ -45,6 +56,13 @@ function [link1, link2, link3, link4, link5, link6, link7] = arm_calc_links(a1, 
     arm.link5 = link5;
     arm.link6 = link6;
     arm.link7 = link7;
+    
+    % store trail in appdata 
+    if trail == 'y'
+        arm.trail = [arm.trail T_04(1:3, 4)];
+        %disp(arm.tail);
+        %disp(trail);
+    end
     
     setappdata(0, 'arm', arm);
 end

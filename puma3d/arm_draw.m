@@ -9,8 +9,7 @@ function arm_draw
     set(arm.patch_h(6), 'faces', arm.link_data.s6.F6, 'vertices', arm.link6(:,1:3));
     set(arm.patch_h(7), 'faces', arm.link_data.s7.F7, 'vertices', arm.link7(:,1:3));
     set(arm.patch_h(8), 'faces', arm.link_data.A1.Fa, 'vertices', arm.link_data.A1.Va(:,1:3));
-    %arm.patch_h(9) = plot3(arm.trail(1, :), arm.trail(2, :), arm.trail(3, :), 'b.');
-    
+    set(arm.patch_h(9), 'XData', arm.trail(1, :), 'YData', arm.trail(2, :), 'ZData', arm.trail(3, :));
     
     setappdata(0, 'arm', arm);
 end
