@@ -1,7 +1,8 @@
 % Creates a ball with the given parameters of 
 function ball_init(pos, r, vel, acc)
-    balls = {};
     
+%     balls = {};
+    balls = getappdata(0, 'balls');
     if nargin == 0
         pos = rand(1,3);
         r = 40; 
