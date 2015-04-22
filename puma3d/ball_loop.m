@@ -1,4 +1,4 @@
-function ball_loop()
+function ball_loop(delta_time)
     balls = getappdata(0, 'balls');
     
     cur_time = clock;
@@ -6,8 +6,9 @@ function ball_loop()
     [sphere_x, sphere_y, sphere_z] = sphere;
     for i=1:length(balls)
         
-        delta_time = etime(cur_time, balls{i}.last_updated);
-        
+        if nargin == 0
+            delta_time = etime(cur_time, balls{i}.last_updated);
+        end
         balls{i}.pos = balls{1}.pos + delta_time * balls{1}.vel ...
              + delta_time * delta_time * balls{i}.acc;
         balls{i}.last_updated = cur_time;
