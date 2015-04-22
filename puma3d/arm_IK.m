@@ -92,7 +92,7 @@ function [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(Px,Py,Pz)
             end
         end
     end
-    if nargout == 1
+    if nargout == 1 || nargout == 0
         theta1 = [theta1,theta2,theta3,theta4,theta5,theta6];
     end
 end
