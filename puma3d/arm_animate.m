@@ -13,9 +13,15 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8)
         n = 1;
         trail = 'n';
     elseif nargin == 2 && isequal(size(a1), [1 6])
-        new_theta = a1;
-        n = 1;
-        trail = a2;
+        if ischar(a2)
+            new_theta = a1;
+            n = 1;
+            trail = a2;
+        else
+            new_theta = a1;
+            n = a2;
+            trail = 'n';
+        end
     elseif nargin == 3 && isequal(size(a1), [1 6]) 
         new_theta = a1;
         n = a2;
