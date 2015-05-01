@@ -12,4 +12,5 @@ function rnd_demo_button_press(h, dummy)
         set(kin_panel.theta(i).slider, 'Value',round(theta(i)));
     end
     setappdata(0, 'kin_panel', kin_panel);
+    
 end

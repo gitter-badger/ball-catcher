@@ -19,15 +19,15 @@ function fig_init
     title('PUMA 762');
 
     % Make sure it axes are scaled correctly
-    axis([-1500 1500 -1500 1500 -1120 1500]);
+    axis([-1500 1500 -1500 1500 -1120 10000]);
     
     % Plot lines at the corners of the cube defines by above axes
     plot3([-1500,  1500], [-1500, -1500], [-1120, -1120], 'k')
     plot3([-1500, -1500], [-1500,  1500], [-1120, -1120], 'k')
-    plot3([-1500, -1500], [-1500, -1500], [-1120,  1500], 'k')
-    plot3([-1500, -1500], [ 1500,  1500], [-1120,  1500], 'k')
-    plot3([-1500,  1500], [-1500, -1500], [ 1500,  1500], 'k')
-    plot3([-1500, -1500], [-1500,  1500], [ 1500,  1500], 'k')
+    plot3([-1500, -1500], [-1500, -1500], [-1120,  10000], 'k')
+    plot3([-1500, -1500], [ 1500,  1500], [-1120,  10000], 'k')
+    plot3([-1500,  1500], [-1500, -1500], [ 10000,  10000], 'k')
+    plot3([-1500, -1500], [-1500,  1500], [ 10000,  10000], 'k')
     
     %
     % UI controls
@@ -47,6 +47,9 @@ function fig_init
 
     uicontrols.create_ball = uicontrol(fig,'String','Create Ball','callback',@create_ball_button_press,...
         'Position', [370 5 80 20]);
+    
+    uicontrols.move_ball = uicontrol(fig,'String','Move Ball Down','callback',@ball_move_down,...
+        'Position', [470 5 120 20]);
     
     % 
     % Kinematics Panel

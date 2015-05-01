@@ -36,4 +36,5 @@ function arm_init
     arm.trail = [0; 0; 0];
     
     setappdata(0, 'arm', arm);
+    
 end
