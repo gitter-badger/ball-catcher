@@ -54,6 +54,21 @@ function fig_init
     % 
     % Kinematics Panel
     %
+    
+    score = {};
+    K_p1 = uipanel(fig,...
+        'units','pixels',...
+        'Position',[200 545 100 100],...
+        'Title','Score','FontSize',11);
+    score.uipanel = K_p1;
+    
+    
+    
+    score.edit = uicontrol(K_p1,'style','edit',...
+            'String', 0,...
+            'callback',@edit_button_press); % L, B, W, H
+        
+        
     kin_panel = {};
 
     K_p = uipanel(fig,...
@@ -123,6 +138,7 @@ function fig_init
     
     setappdata(0, 'uicontrols', uicontrols);
     setappdata(0, 'kin_panel', kin_panel);
+    setappdata(0, 'score', score);
     setappdata(0, 'arm', arm);
     setappdata(0, 'fig', fig);
 end
