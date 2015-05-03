@@ -51,9 +51,11 @@ ball_caught=0;
             
             cur_sc=cur_sc+1;
             ball_caught=1;
+            
         end
         if lrn_sa==1
-            [sp,ap]=sarsa_lam(feat,a,cur_sc);
+            global nogo
+            [sp,ap]=sarsa_lam(feat,a,ball_caught*10);
         end
     end
     

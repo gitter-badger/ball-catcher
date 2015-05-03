@@ -6,6 +6,7 @@ function [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(Px,Py,Pz)
     sign3 = 1;
     global nogo;
     nogo = 0;
+    
     noplot = 0;
     % Because the sqrt term in theta1 & theta3 can be + or - we run through
     % all possible combinations (i = 4) and take the first combination that
@@ -105,4 +106,5 @@ function [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(Px,Py,Pz)
     if nargout == 1 || nargout == 0
         theta1 = [theta1,theta2,theta3,theta4,theta5,theta6];
     end
+   
 end

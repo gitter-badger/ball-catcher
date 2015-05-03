@@ -11,7 +11,7 @@ feat=[balls{1}.pos'-arm_tip'];
 feat(feat<0)=0;
 feat(feat>0)=1;
 
-eps=0.1;
+eps=0.01;
 q=thet'*feat;
 pos=find(q==max(q));
 a=pos(randi(length(pos)));
@@ -27,14 +27,26 @@ else
     a=ap;
 end
 tmp=[balls{1}.pos'-arm_tip'];
-tmp(3)=0;
+%tmp(3)=0;
 new_pos=arm_tip'+alp*(tmp.*act(a,:)');
 %new_pos=arm_tip'+alp*act(a,:)';
 %if new_pos(3)>1401
  %   new_pos(3)=1200;
 %end
 [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(new_pos(1),new_pos(2),new_pos(3));
+
+%{
+global exec_rew
 global nogo
+arm = getappdata(0, 'arm');
+if nogo==1
+    exec_rew=-1;
+else
+    
+    exec_rew=-10*(abs(arm.theta(1:3)-[theta1,theta2,theta3]));
+end
+%}
+
 n = 2;    % demo ani steps
 
 %if nogo~=1
