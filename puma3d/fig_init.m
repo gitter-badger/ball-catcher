@@ -51,6 +51,11 @@ function fig_init
     uicontrols.move_ball = uicontrol(fig,'String','Move Ball Down','callback',@ball_move_down,...
         'Position', [470 5 120 20]);
     
+    uicontrols.move_ball = uicontrol(fig,'String','Sarsa (Lam)','callback',@sarsa_lam_start,...
+        'Position', [800 500 120 20]);
+    uicontrols.move_ball = uicontrol(fig,'String','Clear Sarsa','callback',@sarsa_lam_clear,...
+        'Position', [970 500 120 20]);
+    
     % 
     % Kinematics Panel
     %
@@ -141,4 +146,5 @@ function fig_init
     setappdata(0, 'score', score);
     setappdata(0, 'arm', arm);
     setappdata(0, 'fig', fig);
+    setappdata(0, 'learning_sarsa',0);
 end
