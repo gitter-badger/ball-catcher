@@ -1,5 +1,5 @@
 function [feat,a]=exec_action_sarsa(sp,ap)
-alp=0.2;
+alp=0.3;
 act=[[zeros(4,1);ones(4,1)],repmat([zeros(2,1);ones(2,1)],2,1),repmat([zeros(1,1);ones(1,1)],4,1)];
 balls = getappdata(0, 'balls');
 if nargin==0
