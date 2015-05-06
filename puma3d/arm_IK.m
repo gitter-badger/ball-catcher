@@ -4,7 +4,7 @@ function [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(Px,Py,Pz)
     theta6 = 0;
     sign1 = 1;
     sign3 = 1;
-    global nogo;
+
     nogo = 0;
     
     noplot = 0;

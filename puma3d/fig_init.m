@@ -69,9 +69,27 @@ function fig_init
     
     
     
+    
+    
     score.edit = uicontrol(K_p1,'style','edit',...
             'String', 0,...
             'callback',@edit_button_press); % L, B, W, H
+  
+        
+      rew = {};
+    K_p2 = uipanel(fig,...
+        'units','pixels',...
+        'Position',[200 345 100 100],...
+        'Title','Reward','FontSize',11);
+    rew.uipanel = K_p2;
+    
+    
+    
+    
+    
+    rew.edit = uicontrol(K_p2,'style','edit',...
+            'String', 0,...
+            'callback',@edit_button_press);
         
         
     kin_panel = {};
@@ -144,6 +162,7 @@ function fig_init
     setappdata(0, 'uicontrols', uicontrols);
     setappdata(0, 'kin_panel', kin_panel);
     setappdata(0, 'score', score);
+    setappdata(0, 'rew', rew);
     setappdata(0, 'arm', arm);
     setappdata(0, 'fig', fig);
     setappdata(0, 'learning_sarsa',0);
