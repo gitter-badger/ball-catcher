@@ -8,7 +8,6 @@ function sarsa_lam_start(h, dummy)
     end
     setappdata(0, 'thet_sarsa', thet);
     for i=1:10
-
         create_ball_button_press;
         ball_move_down;
     end

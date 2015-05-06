@@ -5,7 +5,7 @@ function [sp,ap]=sarsa_lam(feat,a,r)
     e = zeros(3,8);
 %     setappdata(0, 'elig_trace', e);
     gamma = 0.8;
-    alp = 0.4;
+    alp = 0.3;
     lam = 5;
 
     %{
