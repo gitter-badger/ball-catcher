@@ -1,3 +1,5 @@
+*.lyx~
+
 # Matlab
 *.m~
 *.asv
