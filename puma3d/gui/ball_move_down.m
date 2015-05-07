@@ -1,8 +1,10 @@
 function ball_move_down(h, dummy)
-    score = getappdata(0, 'score');
+    sarsa = getappdata(0, 'sarsa');
+    stats = getappdata(0, 'stats');
+    score=stats.score;
     balls = getappdata(0, 'balls');
-    lrn_sa = getappdata(0, 'learning_sarsa');
-    eps = getappdata(0, 'epsilon');
+    lrn_sa = sarsa.step_size;
+    eps = sarsa.exploration_factor;
 
     eps1 = 200;
 
@@ -11,7 +13,7 @@ function ball_move_down(h, dummy)
     cur_sc=str2double(cur_sc);
 
 
-    thet = getappdata(0, 'thet_sarsa');
+    thet = sarsa.weights;
 
 
     feat=[balls{1}.pos'-arm_tip'];

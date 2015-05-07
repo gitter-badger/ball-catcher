@@ -152,5 +152,6 @@ function fig_init
     setappdata(0, 'stats', stats);
     setappdata(0, 'arm', arm);
     setappdata(0, 'fig', fig);
+    
 %     setappdata(0, 'sarsa', {});
 end

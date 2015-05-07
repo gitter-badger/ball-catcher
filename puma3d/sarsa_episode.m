@@ -21,6 +21,8 @@ function sarsa_episode(use_gui)
     last_action = 0;
     last_state_features = 0;
     
+    
+    
     while balls{1}.pos(3) >= -1120
         % Find which action to do
         state_features = balls{1}.pos' - arm_tip';
@@ -60,7 +62,7 @@ function sarsa_episode(use_gui)
         delta_arm_angles = max(min(delta_arm_angles, delta_arm_max_angles), delta_arm_min_angles);
         new_constrainted_arm_angles = old_arm_angles + delta_arm_angles;
 %         p = sarsa.arm.angle_vel_max * sarsa.delta_time;
-        fprintf('vel = %d %d %d %d %d %d\n', delta_arm_angles(1), delta_arm_angles(2), delta_arm_angles(3), delta_arm_angles(4), delta_arm_angles(5),delta_arm_angles(6));
+        %fprintf('vel = %d %d %d %d %d %d\n', delta_arm_angles(1), delta_arm_angles(2), delta_arm_angles(3), delta_arm_angles(4), delta_arm_angles(5),delta_arm_angles(6));
 
         target_arm_angles = new_constrainted_arm_angles;
         
@@ -76,6 +78,8 @@ function sarsa_episode(use_gui)
         arm_tip_variable = arm_tip();
         pos_error_dist = pdist2(balls{1}.pos, arm_tip_variable);
         radial_pos_error_dist = pdist2(balls{1}.pos(1:2), arm_tip_variable(1:2));
+        
+        
         if pos_error_dist < sarsa.error_to_catch
             sarsa.score = sarsa.score + 1;
             ball_caught = 1;
@@ -85,8 +89,16 @@ function sarsa_episode(use_gui)
         if first_loop
             first_loop = false;
         else
-            reward = radial_pos_error_dist * -0.10 + ball_caught * 20;
-
+            %{
+            radial_pos_error_dist * -1
+            ball_caught * 100
+            overall_rew*-1e-3*ball_caught
+            pause
+            %}
+            reward = radial_pos_error_dist * -0.1 + ball_caught * 10;
+            
+            sarsa.action_error_scale=radial_pos_error_dist/1000;
+            
             e1 = sarsa.eligibility_trace(:, last_action);
             e1(last_state_features==1) = 1;
             sarsa.eligibility_trace(:, action) = e1;
@@ -106,7 +118,9 @@ function sarsa_episode(use_gui)
         end
         
         if ball_caught
-            fprintf('Ball Caught ! score=%d', sarsa.score);
+          %  sarsa.exploration_factor=0.1/sarsa.score;
+   %         setappdata(0, 'sarsa', sarsa);
+         %   fprintf('Ball Caught ! score=%d', sarsa.score);
             pause(0.5);
             break;
         end
@@ -119,7 +133,9 @@ function sarsa_episode(use_gui)
     
     %% Finish
     stats = getappdata(0, 'stats');
+    
     set(stats.score.edit, 'string', sarsa.score);
+    setappdata(0, 'sarsa', sarsa);
     ball_del;
     
 end

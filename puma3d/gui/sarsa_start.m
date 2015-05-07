@@ -19,10 +19,10 @@ function sarsa_start(h, dummy)
         sarsa.ball.pos_min = [-300 -300 10000];
         sarsa.ball.pos_max = [300 300 10000];
         sarsa.ball.radius = 100;
-        sarsa.ball.vel_min = [0, 0, -1];
-        sarsa.ball.vel_max = [0, 0, -1];
-        sarsa.ball.acc_min = [0, 0, 0];
-        sarsa.ball.acc_max = [0, 0, 0];
+        sarsa.ball.vel_min = [-0.05, -0.05, -0.5];
+        sarsa.ball.vel_max = [0.05, 0.05, -1.5];
+        sarsa.ball.acc_min = [0, 0, -1e-3];
+        sarsa.ball.acc_max = [0, 0, -1e-2];
 
         sarsa.arm.angle_vel_min = 0.1 * [-1, -1, -1, -1, -1, -1]; % rad / sec
         sarsa.arm.angle_vel_max = 0.1 * [1, 1, 1, 1, 1, 1];
