@@ -44,7 +44,7 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8)
 
     n = size(theta_chain, 2); % change n ... just in case.
     
-    for i = 2:1:n
+    for i = 2:n
         % Forward Kinematics
         %
         arm_calc_links(theta_chain(:, i)', trail);
@@ -53,7 +53,7 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8)
         arm = getappdata(0, 'arm');
         
         drawnow
-        arm.theta = theta_chain(:, i);
+        arm.theta = theta_chain(:, i)';
         setappdata(0, 'arm', arm); % Update arm so everyone can use it
     end
     

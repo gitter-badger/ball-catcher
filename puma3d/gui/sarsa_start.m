@@ -24,8 +24,8 @@ function sarsa_start(h, dummy)
         sarsa.ball.acc_min = [0, 0, 0];
         sarsa.ball.acc_max = [0, 0, 0];
 
-        sarsa.arm.angle_vel_min = [-1,-1,-1,-1,-1,-1]; % rad / sec
-        sarsa.arm.angle_vel_max = [1,1,1,1,1,1];
+        sarsa.arm.angle_vel_min = 0.1 * [-1, -1, -1, -1, -1, -1]; % rad / sec
+        sarsa.arm.angle_vel_max = 0.1 * [1, 1, 1, 1, 1, 1];
         
         if exist('weights_sarsa.m', 'file')
             load weights_sarsa.mat;

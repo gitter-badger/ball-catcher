@@ -53,7 +53,18 @@ function sarsa_episode(use_gui)
         new_arm_angles(5) = 0;
         new_arm_angles(6) = 0;
         
-        arm_animate(new_arm_angles, 2)
+        old_arm_angles = arm.theta;
+        delta_arm_angles = new_arm_angles - old_arm_angles;
+        delta_arm_max_angles = sarsa.arm.angle_vel_max * sarsa.delta_time;
+        delta_arm_min_angles = sarsa.arm.angle_vel_min * sarsa.delta_time;
+        delta_arm_angles = max(min(delta_arm_angles, delta_arm_max_angles), delta_arm_min_angles);
+        new_constrainted_arm_angles = old_arm_angles + delta_arm_angles;
+%         p = sarsa.arm.angle_vel_max * sarsa.delta_time;
+        fprintf('vel = %d %d %d %d %d %d\n', delta_arm_angles(1), delta_arm_angles(2), delta_arm_angles(3), delta_arm_angles(4), delta_arm_angles(5),delta_arm_angles(6));
+
+        target_arm_angles = new_constrainted_arm_angles;
+        
+        arm_animate(target_arm_angles, 2)
         ball_loop(sarsa.delta_time);
         
         % Get back the changed? global variables
@@ -95,6 +106,7 @@ function sarsa_episode(use_gui)
         end
         
         if ball_caught
+            fprintf('Ball Caught ! score=%d', sarsa.score);
             pause(0.5);
             break;
         end
