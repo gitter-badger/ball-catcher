@@ -51,49 +51,16 @@ function fig_init
     uicontrols.move_ball = uicontrol(fig,'String','Move Ball Down','callback',@ball_move_down,...
         'Position', [470 5 120 20]);
     
-    uicontrols.move_ball = uicontrol(fig,'String','Sarsa (Lam)','callback',@sarsa_lam_start,...
-        'Position', [800 500 120 20]);
-    uicontrols.move_ball = uicontrol(fig,'String','Clear Sarsa','callback',@sarsa_lam_clear,...
-        'Position', [970 500 120 20]);
+    uicontrols.sarsa_start = uicontrol(fig,'String','Sarsa Start','callback',@sarsa_start,...
+        'Position', [100 400 120 20]);
+    uicontrols.sarsa_clear = uicontrol(fig,'String','Sarsa Clear','callback',@sarsa_clear,...
+        'Position', [100 350 120 20]);
     
     % 
     % Kinematics Panel
     %
     
-    score = {};
-    K_p1 = uipanel(fig,...
-        'units','pixels',...
-        'Position',[200 545 100 100],...
-        'Title','Score','FontSize',11);
-    score.uipanel = K_p1;
-    
-    
-    
-    
-    
-    score.edit = uicontrol(K_p1,'style','edit',...
-            'String', 0,...
-            'callback',@edit_button_press); % L, B, W, H
-  
-        
-      rew = {};
-    K_p2 = uipanel(fig,...
-        'units','pixels',...
-        'Position',[200 345 100 100],...
-        'Title','Reward','FontSize',11);
-    rew.uipanel = K_p2;
-    
-    
-    
-    
-    
-    rew.edit = uicontrol(K_p2,'style','edit',...
-            'String', 0,...
-            'callback',@edit_button_press);
-        
-        
     kin_panel = {};
-
     K_p = uipanel(fig,...
         'units','pixels',...
         'Position',[20 45 265 200],...
@@ -159,11 +126,21 @@ function fig_init
     set(arm.patch_h(8), 'facec', [.8, .8, .8], 'FaceAlpha', .25);
     set(arm.patch_h(8), 'EdgeColor', 'none');
     
+    %% Stats panel
+    stats = {};
+    stats_panel = uipanel(fig,...
+        'units', 'pixels',...
+        'Position', [200 545 100 100],...
+        'Title', 'Score', 'FontSize', 11);
+    stats.panel = stats_panel;    
+    stats.score = uicontrol(stats_panel, 'style', 'edit', 'String', 0);
+    stats.reward = uicontrol(stats_panel,'style','edit', 'String', 0);
+        
+    %% Save to app
     setappdata(0, 'uicontrols', uicontrols);
     setappdata(0, 'kin_panel', kin_panel);
-    setappdata(0, 'score', score);
-    setappdata(0, 'rew', rew);
+    setappdata(0, 'stats', stats);
     setappdata(0, 'arm', arm);
     setappdata(0, 'fig', fig);
-    setappdata(0, 'learning_sarsa',0);
+%     setappdata(0, 'sarsa', {});
 end

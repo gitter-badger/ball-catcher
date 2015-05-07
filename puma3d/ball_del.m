@@ -1,8 +1,14 @@
-function ball_del()
+function ball_del(id)
     balls = getappdata(0, 'balls');
-    length(balls)
-    for i =1:length(balls)
-        delete(balls{i}.handler);
+    
+    if nargin == 0
+        for i=1:length(balls)
+            delete(balls{i}.handler);
+            balls{i}=[];
+        end
+    else
+        delete(balls{id}.handler);
+        balls{id}=[];
     end
-    rmappdata(0, 'balls');
+    setappdata(0, 'balls', balls);
 end

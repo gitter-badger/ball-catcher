@@ -8,6 +8,13 @@ function [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(Px,Py,Pz)
     nogo = 0;
     
     noplot = 0;
+    
+    if nargin == 1
+        Pz = Px(3);
+        Py = Px(2);
+        Px = Px(1);
+    end 
+    
     % Because the sqrt term in theta1 & theta3 can be + or - we run through
     % all possible combinations (i = 4) and take the first combination that
     % satisfies the joint angle constraints.

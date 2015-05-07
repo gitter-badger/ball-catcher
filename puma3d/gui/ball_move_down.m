@@ -1,24 +1,22 @@
 function ball_move_down(h, dummy)
+    score = getappdata(0, 'score');
+    balls = getappdata(0, 'balls');
+    lrn_sa = getappdata(0, 'learning_sarsa');
+    eps = getappdata(0, 'epsilon');
+
+    eps1 = 200;
 
 
-score = getappdata(0, 'score');
-balls = getappdata(0, 'balls');
-lrn_sa = getappdata(0, 'learning_sarsa');
-eps = getappdata(0, 'epsilon');
-
-eps1=200;
+    cur_sc=get(score.edit,'string');
+    cur_sc=str2double(cur_sc);
 
 
-cur_sc=get(score.edit,'string');
-cur_sc=str2double(cur_sc);
+    thet = getappdata(0, 'thet_sarsa');
 
 
-thet = getappdata(0, 'thet_sarsa');
-
-
-feat=[balls{1}.pos'-arm_tip'];
-feat(feat<0)=0;
-feat(feat>0)=1;
+    feat=[balls{1}.pos'-arm_tip'];
+    feat(feat<0)=0;
+    feat(feat>0)=1;
 
 
 
@@ -71,10 +69,9 @@ ball_caught=0;
         ang2=atan(sqrt(at(1).^2+at(2).^2)/at(3));
         
         if pdist2(balls{1}.pos,arm_tip)<eps1
-            
             cur_sc=cur_sc+1;
             ball_caught=1;
-            
+            fprintf('Ball caught !\n');
         end
         if lrn_sa==1
             
