@@ -4,11 +4,11 @@ function ball_del(id)
     if nargin == 0
         for i=1:length(balls)
             delete(balls{i}.handler);
-            balls{i}=[];
+            balls(i)=[];
         end
     else
         delete(balls{id}.handler);
-        balls{id}=[];
+        balls(id)=[];
     end
     setappdata(0, 'balls', balls);
 end

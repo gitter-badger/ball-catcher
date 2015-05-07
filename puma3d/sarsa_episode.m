@@ -20,7 +20,7 @@ function sarsa_episode(use_gui)
     first_loop = true;
     last_action = 0;
     last_state_features = 0;
-    disp(balls);
+    
     while balls{1}.pos(3) >= -1120
         % Find which action to do
         state_features = balls{1}.pos' - arm_tip';
@@ -49,6 +49,9 @@ function sarsa_episode(use_gui)
         
         new_arm_angles = arm_IK(new_pos(1),new_pos(2),new_pos(3));
         new_arm_angles(3) = new_arm_angles(3) - 180;
+        new_arm_angles(4) = 0;
+        new_arm_angles(5) = 0;
+        new_arm_angles(6) = 0;
         
         arm_animate(new_arm_angles, 2)
         ball_loop(sarsa.delta_time);
@@ -71,7 +74,7 @@ function sarsa_episode(use_gui)
         if first_loop
             first_loop = false;
         else
-            reward = radial_pos_error_dist * -10 + ball_caught * 20;
+            reward = radial_pos_error_dist * -0.10 + ball_caught * 20;
 
             e1 = sarsa.eligibility_trace(:, last_action);
             e1(last_state_features==1) = 1;
@@ -88,7 +91,7 @@ function sarsa_episode(use_gui)
             sarsa.eligibility_trace = sarsa.lambda * sarsa.discounting_factor * sarsa.eligibility_trace;
             
             stats = getappdata(0, 'stats');
-            set(stats.reward, 'string', reward);
+            set(stats.reward.edit, 'string', reward);
         end
         
         if ball_caught
@@ -96,15 +99,15 @@ function sarsa_episode(use_gui)
             break;
         end
         
-        fprintf('1 action : last=%d best=%d\n', last_action, action);
+%         fprintf('1 action : last=%d best=%d\n', last_action, action);
         last_action = action;
         last_state_features = state_features;
-        fprintf('2 action : last=%d best=%d\n', last_action, action);
+%         fprintf('2 action : last=%d best=%d\n', last_action, action);
     end
     
     %% Finish
     stats = getappdata(0, 'stats');
-    set(stats.score, 'string', sarsa.score);
+    set(stats.score.edit, 'string', sarsa.score);
     ball_del;
     
 end
