@@ -56,7 +56,7 @@ function fig_init
     uicontrols.sarsa_clear = uicontrol(fig,'String','Sarsa Clear','callback',@sarsa_clear,...
         'Position', [100 350 120 20]);
     uicontrols.move_ball = uicontrol(fig,'String','Run RRT','callback',@build_rrt_arm,...
-        'Position', [970 600 120 20]);
+        'Position', [100 300 120 20]);
     
     % 
     % Kinematics Panel

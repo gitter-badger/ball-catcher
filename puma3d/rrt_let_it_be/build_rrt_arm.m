@@ -1,21 +1,21 @@
-function [rrt] = build_rrt_arm()    
+function [rrt] = build_rrt_arm(h, b)    
     
-    score = getappdata(0, 'score');
+    stats = getappdata(0, 'stats');
     balls = getappdata(0, 'balls');
     threshold_to_catch=200;
-    cur_sc=get(score.edit,'string');
-    cur_sc=str2double(cur_sc);
+    cur_sc = get(stats.score.edit, 'string');
+    cur_sc = str2double(cur_sc);
     start_pt= arm_tip;
     dim = 3;
     min_axis = [-300 -300 10000];
     max_axis = [300  300 10000];
     
     goal = balls{1}.pos;
-    rrt = struct('state',start_pt,'parent',[],'vel',[0;0]);
+    rrt = struct('state', start_pt, 'parent', [], 'vel', [0;0]);
     maxpoints = 1000;
     for iter = 1: maxpoints
         x = arm_tip;
-        disp(sprintf('current position of the fucking arm: %0.3f %0.3f %0.3f',x(1),x(2),x(3) ));
+        disp(sprintf('current position of the arm: %0.3f %0.3f %0.3f',x(1),x(2),x(3) ));
         prob = rand(1);
         if prob < 0.8
             sample_pt = min_axis+(max_axis-min_axis).*rand(dim,1)';
@@ -46,7 +46,7 @@ function [rrt] = build_rrt_arm()
         
         %set px py pz as arm_tip;
         x = new_pt;
-        disp(sprintf('new position of the fucking arm: %0.3f %0.3f %0.3f',x(1),x(2),x(3) ));
+        disp(sprintf('new position of the arm: %0.3f %0.3f %0.3f',x(1),x(2),x(3) ));
         [theta1,theta2,theta3,theta4,theta5,theta6] = arm_IK(x(1), x(2), x(3));
         
         % Theta 4, 5 & 6 are zero due to plotting at wrist origen.
