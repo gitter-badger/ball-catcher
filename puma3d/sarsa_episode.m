@@ -107,8 +107,10 @@ function sarsa_episode(use_gui)
             sarsa.weights = sarsa.weights + sarsa.step_size * delta * sarsa.eligibility_trace;
             sarsa.eligibility_trace = sarsa.lambda * sarsa.discounting_factor * sarsa.eligibility_trace;
             
-            stats = getappdata(0, 'stats');
-            set(stats.reward.edit, 'string', reward);
+            if use_gui
+                stats = getappdata(0, 'stats');
+                set(stats.reward.edit, 'string', reward);
+            end
         end
         
         if ball_caught
@@ -124,8 +126,10 @@ function sarsa_episode(use_gui)
     end
     
     %% Finish
-    stats = getappdata(0, 'stats');
-    set(stats.score.edit, 'string', sarsa.score);
+    if use_gui
+        stats = getappdata(0, 'stats');
+        set(stats.score.edit, 'string', sarsa.score);
+    end
     ball_del;
     
 end
