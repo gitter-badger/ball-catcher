@@ -43,7 +43,7 @@ function sarsa_start(h, dummy)
     
     %% Run experiments
     for i=1:10
-        use_gui = 0;
+        use_gui = false;
         sarsa_episode(use_gui);
     end
     sarsa = getappdata(0, 'sarsa');
