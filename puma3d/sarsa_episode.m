@@ -13,7 +13,7 @@ function sarsa_episode(use_gui)
     
     for i=1:length(new_balls)
         ball_init(new_balls{i}.pos, sarsa.ball.radius, ...
-            new_balls{i}.vel, new_balls{i}.acc);
+            new_balls{i}.vel, new_balls{i}.acc, true);
     end
     
     %% Run

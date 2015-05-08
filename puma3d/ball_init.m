@@ -1,5 +1,5 @@
 % Creates a ball with the given parameters of 
-function ball_init(pos, r, vel, acc)
+function ball_init(pos, r, vel, acc, use_gui)
     
 %     balls = {};
     balls = getappdata(0, 'balls');
@@ -19,6 +19,10 @@ function ball_init(pos, r, vel, acc)
         acc = [0 0 0];
     end
     
+    if nargin ~= 5
+        use_gui = true;
+    end
+    
     new_ball = {};
     new_ball.radius = r;
     new_ball.pos = pos;
@@ -26,12 +30,13 @@ function ball_init(pos, r, vel, acc)
     new_ball.acc = acc;
     new_ball.last_updated = clock;
     
-    [sphere_x, sphere_y, sphere_z] = sphere;
-    
-    new_ball.handler = surf(sphere_x * new_ball.radius + new_ball.pos(1), ...
-        sphere_y * new_ball.radius + new_ball.pos(2), ...
-        sphere_z * new_ball.radius + new_ball.pos(3));
-    
+    if use_gui
+        [sphere_x, sphere_y, sphere_z] = sphere;
+
+        new_ball.handler = surf(sphere_x * new_ball.radius + new_ball.pos(1), ...
+            sphere_y * new_ball.radius + new_ball.pos(2), ...
+            sphere_z * new_ball.radius + new_ball.pos(3));
+    end
     set(new_ball.handler, 'FaceColor', [0 0 1], 'FaceAlpha', 1, ...
         'EdgeColor', 'none', 'LineStyle', 'none', 'FaceLighting', 'phong');
     
