@@ -9,29 +9,15 @@ function ball_move_down(h, dummy)
     eps1 = 200;
 
 
-<<<<<<< Updated upstream
     cur_sc=get(score.edit,'string');
     cur_sc=str2double(cur_sc);
-
-=======
-threshold_to_catch=200;
->>>>>>> Stashed changes
 
     thet = sarsa.weights;
 
 
-<<<<<<< Updated upstream
     feat=[balls{1}.pos'-arm_tip'];
     feat(feat<0)=0;
     feat(feat>0)=1;
-=======
-w = getappdata(0, 'thet_sarsa');
-
-
-feat=[balls{1}.pos'-arm_tip'];
-feat(feat<0)=0;
-feat(feat>0)=1;
->>>>>>> Stashed changes
 
 q=w'*feat;
 sp=feat;
@@ -78,12 +64,7 @@ ball_caught=0;
         ang1=atan(sqrt(balls{1}.pos(1).^2+balls{1}.pos(2).^2)/balls{1}.pos(3));
         ang2=atan(sqrt(at(1).^2+at(2).^2)/at(3));
         
-<<<<<<< Updated upstream
         if pdist2(balls{1}.pos,arm_tip)<eps1
-=======
-        if pdist2(balls{1}.pos,arm_tip)<threshold_to_catch
-            
->>>>>>> Stashed changes
             cur_sc=cur_sc+1;
             ball_caught=1;
             fprintf('Ball caught !\n');
