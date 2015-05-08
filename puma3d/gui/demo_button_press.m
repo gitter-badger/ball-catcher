@@ -1,4 +1,20 @@
 function demo_button_press(h, dummy)
+    disp('dummy here is where i ll be building my rrt dude!');
+
+    
+
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
     kin_panel = getappdata(0, 'kin_panel');
     
     % disp('pushed demo bottom');
