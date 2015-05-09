@@ -89,8 +89,10 @@ function sarsa_episode(use_gui)
         delta_arm_angles = (t1<t).*t+(t1>t).*t1;
         
         new_constrainted_arm_angles = old_arm_angles + delta_arm_angles;
-    %     p = sarsa.arm.angle_vel_max * sarsa.delta_time;
-%        fprintf('vel = %d %d %d %d %d %d\n', delta_arm_angles(1), delta_arm_angles(2), delta_arm_angles(3), delta_arm_angles(4), delta_arm_angles(5),delta_arm_angles(6));
+
+%         p = sarsa.arm.angle_vel_max * sarsa.delta_time;
+%         fprintf('vel = %d %d %d %d %d %d\n', delta_arm_angles(1), delta_arm_angles(2), delta_arm_angles(3), delta_arm_angles(4), delta_arm_angles(5),delta_arm_angles(6));
+
         target_arm_angles = new_constrainted_arm_angles;
         
         arm_animate(target_arm_angles, 2, use_gui)
@@ -101,8 +103,10 @@ function sarsa_episode(use_gui)
         balls = getappdata(0, 'balls');
         sarsa = getappdata(0, 'sarsa');
 
-        
-   %     fprintf('tip = %0.1f %0.1f %0.1f, ball = %0.1f %0.1f %0.1f\n', arm_tip_variable(1), arm_tip_variable(2), arm_tip_variable(3), balls{1}.pos(1), balls{1}.pos(2), balls{1}.pos(3));
+
+%         arm_tip_variable = arm_tip();
+%         fprintf('tip = %0.1f %0.1f %0.1f, ball = %0.1f %0.1f %0.1f\n', arm_tip_variable(1), arm_tip_variable(2), arm_tip_variable(3), balls{1}.pos(1), balls{1}.pos(2), balls{1}.pos(3));
+
         
         % Give rewards
         arm_tip_variable = arm_tip;
@@ -147,8 +151,7 @@ function sarsa_episode(use_gui)
             set(stats(i).reward.edit, 'string', reward(i));
             end
             
-            
-            
+
         end
         
         if ball_caught
@@ -166,11 +169,13 @@ function sarsa_episode(use_gui)
     end
     
     %% Finish
+
     stats = getappdata(0, 'stats');
     for i=1:size(arm,2)
     set(stats(i).score.edit, 'string', sarsa(i).score);
     end
     setappdata(0, 'sarsa', sarsa);
+
     ball_del;
     
 end
