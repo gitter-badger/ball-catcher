@@ -7,7 +7,7 @@ function ball_loop(delta_time, use_gui)
         use_gui = true;
     elseif nargin >= 1
         use_clock = false;
-        use_gui = true;
+%         use_gui = true;
     end
     
     cur_time = clock;
