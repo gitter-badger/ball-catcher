@@ -2,9 +2,6 @@
 function ball_init(pos, r, vel, acc, use_gui,i)
     
 %     balls = {};
-    if i~=1
-    balls = getappdata(0, 'balls');
-    end
     if nargin == 0
         pos = rand(1,3);
         r = 40; 
@@ -19,6 +16,10 @@ function ball_init(pos, r, vel, acc, use_gui,i)
         acc = [0 0 0];
     elseif nargin == 3
         acc = [0 0 0];
+    end
+    
+    if i~=1
+        balls = getappdata(0, 'balls');
     end
     
     if nargin ~= 5

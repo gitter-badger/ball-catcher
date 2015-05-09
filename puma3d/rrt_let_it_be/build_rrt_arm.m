@@ -10,7 +10,7 @@ function [rrt] = build_rrt_arm
     start_pt = arm_tip;
 
     threshold_to_catch=200;
-    cur_sc=get(score.edit ,'string');
+    cur_sc=get(stats.score.edit ,'string');
     cur_sc=str2double(cur_sc);
     start_pt= arm_tip;
 
