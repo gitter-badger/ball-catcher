@@ -16,7 +16,7 @@ function arm_init
     % This data comes from a Pro/E 3D CAD model and was made with cad2matdemo.m
     % from the file exchange.  All link data manually stored in linksdata.mat
     arm = {};
-    no_arm=10;
+    no_arm=1;
     for i=1:no_arm
     arm(i).link_data = load('linksdata.mat', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 'A1');
 

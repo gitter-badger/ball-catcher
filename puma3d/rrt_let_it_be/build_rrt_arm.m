@@ -5,7 +5,7 @@ function [rrt] = build_rrt_arm
     balls = getappdata(0, 'balls');
 
     threshold_to_catch = 200;
-    cur_sc = get(stats.score.edit, 'string');
+    cur_sc = get(stats(1).score.edit, 'string');
     cur_sc = str2double(cur_sc);
     start_pt = arm_tip;
 

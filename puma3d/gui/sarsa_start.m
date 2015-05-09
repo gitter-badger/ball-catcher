@@ -55,7 +55,7 @@ function sarsa_start(h, dummy)
     %% Run experiments
     
     for i=1:10
-        use_gui = false;
+        use_gui = true;
         sarsa_episode(use_gui);
     end
     
