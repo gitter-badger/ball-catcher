@@ -44,6 +44,7 @@ function fig_init
     uicontrols.home= uicontrol(fig,'String','Home','callback',@home_button_press,...
         'Position',[280 5 70 20]);
 
+
     uicontrols.sarsa_start = uicontrol(fig, 'String', 'Sarsa Start', ...
         'callback', @sarsa_start, ...
         'Position', [10 400 100 20]);
@@ -59,6 +60,24 @@ function fig_init
 %     uicontrols.move_ball = uicontrol(fig, 'String', 'Stop RRT', ...
 %         'callback', @stop_rrt, ...
 %         'Position', [120 350 100 20]);
+
+    uicontrols.create_ball = uicontrol(fig,'String','Create Ball','callback',@create_ball_button_press,...
+        'Position', [370 5 80 20]);
+    
+    uicontrols.move_ball = uicontrol(fig,'String','Move Ball Down','callback',@ball_move_down,...
+        'Position', [470 5 120 20]);
+    
+    uicontrols.sarsa_start = uicontrol(fig,'String','Sarsa Start','callback',@sarsa_start,...
+        'Position', [100 400 120 20]);
+    uicontrols.sarsa_clear = uicontrol(fig,'String','Sarsa Clear','callback',@sarsa_clear,...
+        'Position', [100 350 120 20]);
+%=======
+    uicontrols.move_ball = uicontrol(fig,'String','Sarsa (Lam)','callback',@sarsa_lam_start,...
+        'Position', [800 500 120 20]);
+    uicontrols.move_ball = uicontrol(fig,'String','Clear Sarsa','callback',@sarsa_lam_clear,...
+        'Position', [970 500 120 20]);
+    uicontrols.move_ball = uicontrol(fig,'String','Run RRT','callback',@build_rrt_arm,...
+        'Position', [970 600 120 20]);
     
     % 
     % Kinematics Panel
@@ -185,7 +204,17 @@ function fig_init
     setappdata(0, 'stats', stats);
     setappdata(0, 'arm', arm);
     setappdata(0, 'fig', fig);
+
 %     setappdata(0, 'sarsa', {});
     
     
+
+
+    
+%     setappdata(0, 'sarsa', {});
+
+    setappdata(0, 'learning_sarsa',0);
+    
+    
+
 end
