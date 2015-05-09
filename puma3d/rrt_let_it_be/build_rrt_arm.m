@@ -1,5 +1,5 @@
 function [rrt] = build_rrt_arm
-    
+    arm = getappdata(0, 'arm');
     use_gui = true;
     stats = getappdata(0, 'stats');
     balls = getappdata(0, 'balls');
@@ -27,7 +27,7 @@ function [rrt] = build_rrt_arm
     new_balls{1}.radius = 100;
     for i=1:length(new_balls)
         ball_init(new_balls{i}.pos, new_balls{1}.radius, ...
-            new_balls{i}.vel, new_balls{i}.acc, true);
+            new_balls{i}.vel, new_balls{i}.acc, true,size(arm,2));
     end
     
     
@@ -37,7 +37,7 @@ function [rrt] = build_rrt_arm
         %move the goal
         ball_loop(delta_time, use_gui);
         balls = getappdata(0, 'balls');
-        goal = balls{1}.pos;
+        goal = balls(1).pos;
         simulated_arm_tip = arm_tip;
         start_pt = simulated_arm_tip;
         %A new rrt from the start_pt every step
