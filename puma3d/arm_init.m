@@ -16,25 +16,26 @@ function arm_init
     % This data comes from a Pro/E 3D CAD model and was made with cad2matdemo.m
     % from the file exchange.  All link data manually stored in linksdata.mat
     arm = {};
-    
-    arm.link_data = load('linksdata.mat', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 'A1');
+    no_arm=10;
+    for i=1:no_arm
+    arm(i).link_data = load('linksdata.mat', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 'A1');
 
     % offsets to define the "home" position as UP & ranges.
-    arm.home_pos = [90, -90, -90, 0, 0, 0];
-    arm.min_pos = [-160, -110, -350, -266, -100, -266];
-    arm.max_pos = [160, 110, 350, 266, 100, 266];
+    arm(i).home_pos = [90, -90, -90, 0, 0, 0];
+    arm(i).min_pos = [-160, -110, -350, -266, -100, -266];
+    arm(i).max_pos = [160, 110, 350, 266, 100, 266];
 
     % Some constants for the arm. Not sure for what. Used in calculations
-    arm.a2 = 650;
-    arm.a3 = 0;
-    arm.d3 = 190;
-    arm.d4 = 600;
+    arm(i).a2 = 650;
+    arm(i).a3 = 0;
+    arm(i).d3 = 190;
+    arm(i).d4 = 600;
 
     % The 'home' position in angles, for the start
-    arm.theta = arm.home_pos;
+    arm(i).theta = arm(i).home_pos;
     
-    arm.trail = [0; 0; 0];
-    
+    arm(i).trail = [0; 0; 0];
+    end
     setappdata(0, 'arm', arm);
     
 end

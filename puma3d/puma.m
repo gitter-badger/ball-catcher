@@ -43,8 +43,9 @@ function puma
     % patch handlers and saved in "arm.patch_h" Also initializes "trail"
     arm_draw;
     
-    balls = {};
-    setappdata(0, 'balls', balls);
+    %balls = {};
+    
+   % setappdata(0, 'balls', balls);
 
     % rmpath gui/
 end

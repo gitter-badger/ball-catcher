@@ -3,7 +3,12 @@
 % trail is 'y' or 'n' (n = anything else) for leaving a trail.
 
 function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8, a9)
+
     arm = getappdata(0, 'arm');
+    a1_back=a1;
+    for j=1:size(arm,2)
+        a1=a1_back(:,j)';
+        
     new_theta = zeros(1, 6);
     n = 1;
     trail = 'n';
@@ -53,12 +58,12 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8, a9)
         return;
     end
     
-    theta_chain = [linspace(arm.theta(1), new_theta(1), n); ...
-        linspace(arm.theta(2), new_theta(2), n); ...
-        linspace(arm.theta(3), new_theta(3), n); ...
-        linspace(arm.theta(4), new_theta(4), n); ...
-    	linspace(arm.theta(5), new_theta(5), n); ...
-    	linspace(arm.theta(6), new_theta(6), n); ];
+    theta_chain = [linspace(arm(j).theta(1), new_theta(1), n); ...
+        linspace(arm(j).theta(2), new_theta(2), n); ...
+        linspace(arm(j).theta(3), new_theta(3), n); ...
+        linspace(arm(j).theta(4), new_theta(4), n); ...
+    	linspace(arm(j).theta(5), new_theta(5), n); ...
+    	linspace(arm(j).theta(6), new_theta(6), n); ];
 
     n = size(theta_chain, 2); % change n ... just in case.
     
@@ -73,9 +78,11 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8, a9)
         arm = getappdata(0, 'arm');
         
         drawnow
-        arm.theta = theta_chain(:, i)';
-        setappdata(0, 'arm', arm); % Update arm so everyone can use it
+        arm(j).theta = theta_chain(:, i)';
     end
+    end
+        setappdata(0, 'arm', arm); % Update arm so everyone can use it
+    
     
     % setappdata(0, 'arm', arm);
 end
