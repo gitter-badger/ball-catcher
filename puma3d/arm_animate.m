@@ -6,6 +6,7 @@ function arm_animate(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 
     arm = getappdata(0, 'arm');
     a1_back=a1;
+    
     for j=1:size(arm,2)
         a1=a1_back(:,j)';
         

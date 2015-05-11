@@ -24,10 +24,10 @@ function sarsa_start(h, dummy)
         sarsa(i).ball.pos_min = [-300 -300 10000];
         sarsa(i).ball.pos_max = [300 300 10000];
         sarsa(i).ball.radius = 100;
-        sarsa(i).ball.vel_min = [-0.05, -0.05, -0.5];
-        sarsa(i).ball.vel_max = [0.05, 0.05, -1.5];
-        sarsa(i).ball.acc_min = [0, 0, -1e-3];
-        sarsa(i).ball.acc_max = [0, 0, -1e-2];
+        sarsa(i).ball.vel_min = [0, 0, -1];
+        sarsa(i).ball.vel_max = [0, 0, -1];
+        sarsa(i).ball.acc_min = [0, 0, 0];
+        sarsa(i).ball.acc_max = [0, 0, 0];
 
         sarsa(i).arm.angle_vel_min = 0.1 * [-1, -1, -1, -1, -1, -1]; % rad / sec
         sarsa(i).arm.angle_vel_max = 0.1 * [1, 1, 1, 1, 1, 1];
@@ -55,7 +55,7 @@ function sarsa_start(h, dummy)
     %% Run experiments
     
     for i=1:10
-        use_gui = true;
+        use_gui = false;
         sarsa_episode(use_gui);
     end
     

@@ -117,8 +117,11 @@ function sarsa_episode(use_gui)
         
         sat=(pos_error_dist < [sarsa.error_to_catch]);
         if max(sat)==1
-            
-            [sarsa(sat).score] = [sarsa(sat).score] + 1;
+            for k=1:size(arm,2)
+                if sat(k)==1
+            [sarsa(k).score] = [sarsa(k).score] + 1;
+                end
+            end
             ball_caught(sat) = 1;
             setappdata(0, 'sarsa', sarsa)
         end
