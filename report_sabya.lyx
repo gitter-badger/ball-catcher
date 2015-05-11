@@ -1,0 +1,571 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+RL Project Report
+\end_layout
+
+\begin_layout Section
+Reinforcement Learning solutions-
+\end_layout
+
+\begin_layout Standard
+We solve the problem of catching the ball by formulating it as a MDP.
+ Since the ball can take any position in the defined area and the angles
+ of the links of the arm can attain angles over a continous space, the problem
+ is a continuous state and continuous action MDP.
+ In order to solve this MDP, we take the help of linear function approximation
+ techniques for representing the value functions of the state and use a
+ encoding to represent the various actions onto a finite set.
+ 
+\end_layout
+
+\begin_layout Subsection
+Formulating the problem into a RL Framework-
+\end_layout
+
+\begin_layout Standard
+The first task was to choose the features that can be used to encode the
+ states.
+ We decided on a 3 bit binary encoding for the state.
+ If the ball had a x coordinate greater than the x coordinate of the tip
+ of the arm, the first bit was set as 1, else it was set as 0.
+ Similarly the other two bits represented the relative y and z coordinate
+ of the ball with respect to the tip of the arm.
+ Since the aim is for the tip of the arm to reach the ball, we felt such
+ a relative representation is sufficient for the problem.
+ 
+\end_layout
+
+\begin_layout Standard
+Even though our arm consists of 6 degrees of freedom, 3 of them are sufficient
+ for the movement of the tip arm to a particular (x,y,z) coordinate.
+ Thus we again use a 3 bit encoding for the actions corresponding to the
+ change in angle of each link.
+ If the bit corresponding to the first angle is 1, then that link is moved
+ in that action, else it is not.
+ The amount by which it is moved is a scaled version of the distance between
+ the ball and the tip of the arm.
+ The scaling vector was proportional to radial error between the tip of
+ the arm and the ball.
+ Since in our case the ball was dropping in the z plane, the radial error
+ corresponds to the distance between the x and y coordinates.
+ To incorporate real world constraints into the movement of the arm, we
+ also upper bound the maximum change in angle by the maximum velocity that
+ the arm can attain.
+ Thus this prevents the arm from instantaneously changing its position by
+ a large amount.
+\end_layout
+
+\begin_layout Standard
+The reward given to the agent consists of two subrewards.
+ The first subreward is the reward for catching the ball for which a reward
+ of +20 is given.
+ The other subreward depends on the radial error.
+ Penalising the radial error ensures that the arm doesnt move randomly till
+ the ball comes down and tries to move towards the final goal.
+\end_layout
+
+\begin_layout Subsection
+Using SARSA(
+\begin_inset Formula $\lambda$
+\end_inset
+
+) for control-
+\end_layout
+
+\begin_layout Standard
+We use the linear, gradient descent Sarsa(
+\begin_inset Formula $\lambda$
+\end_inset
+
+) with binary features, an 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+-greedy policy for control and replacing traces for controlling the RL agent.
+ The description of the algorithm is given below
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Linear, gradient-descent Sarsa(
+\begin_inset Formula $\lambda$
+\end_inset
+
+) with binary features and 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+- greedy policy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Let 
+\series bold
+w
+\series default
+ and 
+\series bold
+e
+\series default
+ be vectors with one component for each possible feature
+\end_layout
+
+\begin_layout Plain Layout
+Let 
+\begin_inset Formula $\mathcal{F}_{a}$
+\end_inset
+
+ , for every possible action a, be a set of feature indices, initially empty
+\end_layout
+
+\begin_layout Plain Layout
+Initialize 
+\series bold
+w
+\series default
+ as appropriate for the problem, e.g., 
+\series bold
+w = 0
+\end_layout
+
+\begin_layout Plain Layout
+Repeat (for each episode):
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\series bold
+e = 0
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+S, A 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ initial state and action of episode
+\begin_inset space \qquad{}
+\end_inset
+
+(e.g., 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+-greedy)
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $\mathcal{F}_{A}$
+\end_inset
+
+ 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ set of features present in S, A
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+Repeat (for each step of episode):
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+For all i 
+\begin_inset Formula $\in$
+\end_inset
+
+ 
+\begin_inset Formula $\mathcal{F}_{A}$
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $e_{i}$
+\end_inset
+
+ 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ 1
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+(replacing traces)
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+Take action A, observe reward, R, and next state, 
+\begin_inset Formula $S'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $\delta\leftarrow R-\sum_{i\in\mathcal{F}_{A}}w_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+If 
+\begin_inset Formula $S'$
+\end_inset
+
+ is terminal, then 
+\begin_inset Formula $\mathbf{w}\leftarrow\mathbf{w}+\alpha\delta\mathbf{e}$
+\end_inset
+
+; go to next episode
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+For all 
+\begin_inset Formula $a\in A(S')$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $\mathcal{F}_{a}$
+\end_inset
+
+
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ set of features present in 
+\begin_inset Formula $S'$
+\end_inset
+
+, a
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $Q_{a}$
+\end_inset
+
+ 
+\begin_inset Formula $\leftarrow\sum_{i\in\mathcal{\mathcal{F}}_{a}}w_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $A'$
+\end_inset
+
+ 
+\begin_inset Formula $\leftarrow$
+\end_inset
+
+ new action in 
+\begin_inset Formula $S'$
+\end_inset
+
+ (e.g., 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+-greedy)
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $\delta\leftarrow\delta+\gamma Q_{A'}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $\mathbf{w}\leftarrow\mathbf{w}+\alpha\delta\mathbf{e}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $\mathbf{e}\leftarrow\gamma\lambda\mathbf{e}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $S\leftarrow S'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Formula $A\leftarrow A'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The episode consists of a set of 10 balls which are dropped from random
+ positions with random velocity and accelerations.
+\end_layout
+
+\begin_layout Subsection
+Parallelising the learning of the agent
+\end_layout
+
+\begin_layout Standard
+Even though we have reduced the problem complexity by using function approximati
+on, learning the policy still requires a lot of runs.
+ To speed up the learning process, we made created multiple arms which run
+ in parallel .
+ After each episode, a weighted average of the weights learnt by the various
+ arms is used to initialise the weights for the next episode.
+ The weights are determined by 
+\begin_inset Formula $\frac{r_{i}}{\sum_{j\in N}r_{j}}$
+\end_inset
+
+, where 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ is the number of balls caught by the arm in one episode and N is the number
+ of arms.
+\end_layout
+
+\end_body
+\end_document

@@ -9,6 +9,6 @@ function slider_button_press(h, dummy)
         set(kin_panel.theta(i).edit, 'string', slider_value);
     end
     
-    arm_animate(theta_values, 10,'n')
+    arm_animate(theta_values', 10,'n')
     end
 end
