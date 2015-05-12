@@ -28,7 +28,9 @@ function ball_init(pos, r, vel, acc, use_gui,i)
     
     new_ball = {};
     new_ball.radius = r;
+    
     new_ball.pos = pos;
+    new_ball.pos
     new_ball.vel = vel;
     new_ball.acc = acc;
     new_ball.last_updated = clock;
